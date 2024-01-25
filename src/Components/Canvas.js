@@ -43,6 +43,7 @@ const Canvas = ({
             onMouseDown={onMouseDown}
             style={canvasStyle}
             ref={setCanvasRef}
+            id={'canvas'}
         />
     )
 }
