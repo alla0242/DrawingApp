@@ -20,7 +20,7 @@ let imageData
         // const ctx = canvas.getContext('2d')
     const link = document.createElement('a');
     link.href = imageData;
-    link.download = 'canvas.png';
+    link.download = `${new Date()}`;
     link.click();
         // console.log(imageData)
 
