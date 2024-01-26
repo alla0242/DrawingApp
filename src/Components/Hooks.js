@@ -9,6 +9,10 @@ export function useOnDraw(onDraw){
     const mouseUpListenerRef = useRef(null);
 
 
+
+
+
+
     useEffect(() => {
     
             function initMouseMoveListener(){
@@ -27,6 +31,7 @@ export function useOnDraw(onDraw){
         mouseMoveListenerRef.current = mouseMoveListener;
         window.addEventListener("mousemove", mouseMoveListener)
     }
+
 
     function initMouseUpListener(){
         const listener = () => {

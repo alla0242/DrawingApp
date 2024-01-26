@@ -1,6 +1,7 @@
 import './App.css';
 import Canvas from './Components/Canvas';
-import ClearButton from './Components/ClearButton';
+// import ClearButton from './Components/ClearButton';
+import SaveButton from './Components/SaveButton';
 
 
 
@@ -8,11 +9,10 @@ import ClearButton from './Components/ClearButton';
 function App() {
   return (
     <div className="App">
-      <ClearButton
+            <SaveButton
       width={200}
-      height={200}>
-        Clear
-        </ClearButton>
+      height={200}/>
+
       <Canvas
         width={700}
         height={500}
