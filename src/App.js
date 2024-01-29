@@ -1,7 +1,8 @@
 import './App.css';
 import Canvas from './Components/Canvas';
+import FohButton from './Components/FohButton';
+import Kitchen from './Components/Kitchen';
 // import ClearButton from './Components/ClearButton';
-import SaveButton from './Components/SaveButton';
 
 
 
@@ -9,13 +10,17 @@ import SaveButton from './Components/SaveButton';
 function App() {
   return (
     <div className="App">
-            <SaveButton
+            <FohButton
       width={200}
       height={200}/>
 
       <Canvas
         width={700}
         height={500}
+      />
+      <Kitchen
+      width={350}
+      height={500}
       />
     </div>
   );
