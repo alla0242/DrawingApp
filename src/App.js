@@ -2,7 +2,6 @@ import './App.css';
 import Canvas from './Components/Canvas';
 import FohButton from './Components/FohButton';
 import Kitchen from './Components/Kitchen';
-// import ClearButton from './Components/ClearButton';
 
 
 

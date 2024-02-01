@@ -24,34 +24,41 @@ let imageData
 console.log(imageData)
             return myCache.put(avatarReq, avatarRes)
         })
+
+
+        //API
+
+        // app.post(()=>{
+
+        // })
     }
 
         function loadCanvas(){
  
-let myImage = document.getElementById('kitchen')
-myImage.src = imageData;
-
-
-// caches.open('myCache')
-//       .then((cache) => {
-//         return cache.keys()
-//           .then((requests) => {
-//             const dataPromises = requests.map((request) => {
-//               return cache.match(request)
-//             });
-
-//             return Promise.all(dataPromises);
-//           }).then((allFriendData) => {
-//             allFriendData.forEach((friendData) => {
-//               })
-//                   let myImage = document.getElementById('kitchen')
+// let myImage = document.getElementById('kitchen')
 // myImage.src = imageData;
 
-//           });
-//       })
-//       .catch((error) => {
-//         console.error(error.message);
-//       });
+
+caches.open('myCache')
+      .then((cache) => {
+        return cache.keys()
+          .then((requests) => {
+            const dataPromises = requests.map((request) => {
+              return cache.match(request)
+            });
+
+            return Promise.all(dataPromises);
+          }).then((allFriendData) => {
+            allFriendData.forEach((friendData) => {
+              })
+                  let myImage = document.getElementById('kitchen')
+myImage.src = imageData;
+
+          });
+      })
+      .catch((error) => {
+        console.error(error.message);
+      });
 
 
     // const link = document.createElement('a');
