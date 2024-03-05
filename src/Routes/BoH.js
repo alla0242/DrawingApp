@@ -1,7 +1,5 @@
-import FohButton from "./FohButton";
-
-
-const Kitchen = ({
+import FohButton from "../Components/FohButton";
+const BoH = ({
     width,
     height,
     src
@@ -9,10 +7,11 @@ const Kitchen = ({
 
 //add logic here
 
-
     return(
         <div>
-            <FohButton/>
+            <FohButton
+      width={200}
+      height={200}/>
         <img
             id={'kitchen'}
             src={src}
@@ -22,5 +21,4 @@ const Kitchen = ({
     )
 }
 
-export default Kitchen;
-
+export default BoH;
