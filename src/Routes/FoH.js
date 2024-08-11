@@ -122,7 +122,7 @@ export default function FoH({ onOrderFinished }) {
   return (
     <>
       <FohButton width={200} height={200} />
-      <Canvas width={700} height={500} />
+      <Canvas width={400} height={700} />
       <div>
         <h2>Current Orders</h2>
         {orders.length > 0 ? (

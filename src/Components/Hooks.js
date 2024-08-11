@@ -90,7 +90,9 @@ export function useOnDraw(onDraw) {
         isDrawingRef.current = true;
     }
 
-    function onTouchStart() {
+    function onTouchStart(e) {
+        e.preventDefault(); // Prevent default touch behavior
+        e.stopPropagation();
         isDrawingRef.current = true;
     }
 

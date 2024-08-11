@@ -1,0 +1,34 @@
+.modal {
+  display: flex;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8); /* Black background with transparency */
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 5px;
+  position: relative;
+  max-width: 100vw; /* Set a max width for larger screens */
+  width: 100vw; /* Full width on smaller screens */
+  height: auto; /* Allow height to adjust based on content */
+  overflow: hidden; /* Prevent overflow */
+}
+
+.modal-content canvas {
+  width: 100%; /* Make canvas take full width */
+  height: 100%; /* Make canvas take full height */
+  border: 1px solid black; /* Optional: for visibility */
+}
+
+.close {
+  position: absolute;
+  font-size: 30px;
+  cursor: pointer;
+}
