@@ -47,7 +47,7 @@ async function run() {
       }
     });
 
-    app.put("/api/updateImageState", async (req, res) => {
+    app.put(`${uri}/api/updateImageState`, async (req, res) => {
       const { id, state, source } = req.body;
       const changeTime = new Date();
       try {
@@ -74,7 +74,7 @@ async function run() {
       }
     });
 
-    app.get("/api/getLatestImages", async (req, res) => {
+    app.get(`${uri}/api/getLatestImages`, async (req, res) => {
       try {
         const results = await collection
           .find()

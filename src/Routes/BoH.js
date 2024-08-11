@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 import React, { useState, useEffect } from "react";
 import BoHButtons from "../Components/BoHButtons";
 
@@ -15,7 +13,7 @@ const BoH = ({ width, height }) => {
   }, []);
 
   function fetchLatestImages() {
-    fetch(`${process.env.MONGODB_URI}/api/getLatestImages`)
+    fetch(`/api/getLatestImages`)
       .then((response) => response.json())
       .then((data) => {
         if (data.success && data.images) {
