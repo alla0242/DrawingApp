@@ -5,7 +5,6 @@ export default function Root() {
     <>
       <div id="sidebar">
         
-              <a href={`../App`}>App</a>
               <a href={`../App/FoH`}>FoH</a>
               <a href={`../App/BoH`}>BoH</a>
         </div>

@@ -12,7 +12,7 @@ const FohButton = ({
 
     const [loading, setLoading] = React.useState(false);
 
-    function saveCanvas() {
+    function sendToKitchen() {
         const canvas = document.getElementById("canvas");
         const imageData = canvas.toDataURL('image/png');
         fetch('http://localhost:5150/api/saveImage', {
@@ -25,11 +25,12 @@ const FohButton = ({
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
-            alert('Image saved successfully!');
+            alert('Order sent to kitchen successfully!');
+            clearCanvas();
         })
         .catch((error) => {
             console.error('Error:', error);
-            alert('Failed to save image');
+            alert('Failed to send order to kitchen');
         });
     }
 
@@ -39,16 +40,16 @@ const FohButton = ({
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         setLoading(true);
-        fetch('http://localhost:5150/api/getLatestImage')
+        fetch('http://localhost:5150/api/getLatestImages')
         .then(response => response.json())
         .then(data => {
-            if (data.success && data.imageData) {
+            if (data.success && data.images) {
                 const img = new Image();
                 img.onload = function() {
                     ctx.drawImage(img, 0, 0);
                     setLoading(false);
                 };
-                img.src = data.imageData;
+                img.src = data.images[0].imageData;
             } else {
                 setLoading(false);
                 alert('No saved image found!');
@@ -72,20 +73,11 @@ const FohButton = ({
         <button
         height={height}
         width={width}
-        id={'saveButton'}
-                onMouseDown={saveCanvas}
+        id={'sendToKitchenButton'}
+                onMouseDown={sendToKitchen}
                 disabled={loading}
         >
-            {loading ? 'Saving...' : 'Save'}
-        </button>
-                <button
-        height={height}
-        width={width}
-        id={'loadButton'}
-                onMouseDown={loadCanvas}
-                disabled={loading}
-        >
-            {loading ? 'Loading...' : 'Load'}
+            {loading ? 'Sending...' : 'Send to Kitchen'}
         </button>
                 <button
         height={height}
