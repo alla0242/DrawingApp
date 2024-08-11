@@ -74,7 +74,7 @@ async function run() {
       }
     });
 
-    app.get("/api/getLatestImages", async (req, res) => {
+    app.get(`${uri}/api/getLatestImages`, async (req, res) => {
       try {
         const results = await collection
           .find()
