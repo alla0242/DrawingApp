@@ -14,6 +14,7 @@ const FohButton = ({
     const [loading, setLoading] = React.useState(false);
 
     function sendToKitchen() {
+        setLoading(true);
         const canvas = document.getElementById("canvas");
         const imageData = canvas.toDataURL('image/png');
         fetch('http://localhost:5150/api/saveImage', {
@@ -33,34 +34,9 @@ const FohButton = ({
         .catch((error) => {
             console.error('Error:', error);
             alert('Failed to send order to kitchen');
-        });
-    }
-
-    function loadCanvas() {
-        const canvas = document.getElementById("canvas");
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        setLoading(true);
-        fetch('http://localhost:5150/api/getLatestImages')
-        .then(response => response.json())
-        .then(data => {
-            if (data.success && data.images) {
-                const img = new Image();
-                img.onload = function() {
-                    ctx.drawImage(img, 0, 0);
-                    setLoading(false);
-                };
-                img.src = data.images[0].imageData;
-            } else {
-                setLoading(false);
-                alert('No saved image found!');
-            }
         })
-        .catch(error => {
-            console.error('Error:', error);
+        .finally(() => {
             setLoading(false);
-            alert('Failed to load image');
         });
     }
 
