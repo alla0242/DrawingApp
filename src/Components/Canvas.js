@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useOnDraw } from './Hooks';
 
 const Canvas = ({
@@ -28,6 +29,18 @@ const Canvas = ({
         ctx.arc(start.x, start.y, 2, 0, 2 * Math.PI);
         ctx.fill();
     }
+
+    useEffect(() => {
+        const preventPullToRefresh = (e) => {
+            e.preventDefault();
+        };
+
+        window.addEventListener('touchmove', preventPullToRefresh, { passive: false });
+
+        return () => {
+            window.removeEventListener('touchmove', preventPullToRefresh);
+        };
+    }, []);
 
     return (
         <canvas

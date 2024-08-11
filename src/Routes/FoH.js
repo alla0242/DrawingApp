@@ -121,8 +121,10 @@ export default function FoH({ onOrderFinished }) {
 
   return (
     <>
-      <FohButton width={200} height={200} />
-      <Canvas width={400} height={700} />
+      <div>
+        <FohButton width={200} height={200} />
+        <Canvas width={400} height={700} />
+      </div>
       <div>
         <h2>Current Orders</h2>
         {orders.length > 0 ? (
@@ -130,16 +132,26 @@ export default function FoH({ onOrderFinished }) {
             {orders.map((order, index) => (
               <li key={order.id} style={getOrderStyle(order.state)}>
                 <details>
-                  <summary onClick={() => handleOrderClick(order)} style={{ cursor: 'pointer' }}>
-                    Order {index + 1}: 
-                    State: {order.state}, 
-                    Time: {new Date(order.timestamp).toLocaleString()}
+                  <summary
+                    onClick={() => handleOrderClick(order)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    Order {index + 1}: State: {order.state}, Time:{" "}
+                    {new Date(order.timestamp).toLocaleString()}
                   </summary>
                   {selectedOrder && selectedOrder.id === order.id && (
                     <div>
-                      <img src={order.imageData} alt="Order" style={{ maxWidth: '100%', maxHeight: '300px' }} />
+                      <img
+                        src={order.imageData}
+                        alt="Order"
+                        style={{ maxWidth: "100%", maxHeight: "300px" }}
+                      />
                       {order.state !== "Order at table" && (
-                        <button onClick={() => updateOrderState(order.id, "Order at table")}>
+                        <button
+                          onClick={() =>
+                            updateOrderState(order.id, "Order at table")
+                          }
+                        >
                           Set to Order at Table
                         </button>
                       )}
