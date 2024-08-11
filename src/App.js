@@ -1,7 +1,5 @@
 import './App.css';
-import Canvas from './Components/Canvas';
-import FohButton from './Components/FohButton';
-import Kitchen from './Components/Kitchen';
+import Homepage from './Components/Homepage';
 
 
 
@@ -9,18 +7,7 @@ import Kitchen from './Components/Kitchen';
 function App() {
   return (
     <div className="App">
-            <FohButton
-      width={200}
-      height={200}/>
-
-      <Canvas
-        width={700}
-        height={500}
-      />
-      <Kitchen
-      width={350}
-      height={500}
-      />
+ <Homepage></Homepage>
     </div>
   );
 }
