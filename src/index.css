@@ -2,3 +2,30 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height to center vertically */
+  flex-direction: column; /* Stack buttons vertically */
+}
+
+.large-button {
+  display: inline-block;
+  padding: 20px 40px;
+  margin: 10px;
+  font-size: 24px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.large-button:hover {
+  background-color: #0056b3;
+}

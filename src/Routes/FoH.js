@@ -24,7 +24,7 @@ export default function FoH({ onOrderFinished }) {
   }, []);
 
   function fetchOrders() {
-    fetch('http://localhost:5150/api/getLatestImages')
+    fetch('http://192.168.1.10:5150/api/getLatestImages')
       .then(response => response.json())
       .then(data => {
         if (data.success && data.images) {
@@ -52,7 +52,7 @@ export default function FoH({ onOrderFinished }) {
   }
 
   function updateOrderState(orderId, newState) {
-    fetch('http://localhost:5150/api/updateImageState', {
+    fetch('http://192.168.1.10:5150/api/updateImageState', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ export default function FoH({ onOrderFinished }) {
     // Format the timeTaken string
     const timeTakenString = `it took ${minutes} minutes and ${seconds} seconds for the order to be completed`;
 
-    fetch('http://localhost:5150/api/finishOrder', {
+    fetch('http://192.168.1.10:5150/api/finishOrder', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -131,12 +131,12 @@ export default function FoH({ onOrderFinished }) {
     <>
       <div>
         {!showOrderForm && (
-          <button onClick={handleCreateOrder}>Create Order</button>
+          <button onClick={handleCreateOrder} className='large-button'>Create Order</button>
         )}
         {showOrderForm && (
           <div>
-            <FohButton width={200} height={200} onSendToKitchen={handleSendToKitchen} />
             <Canvas width={400} height={700} />
+            <FohButton width={200} height={200} onSendToKitchen={handleSendToKitchen} />
           </div>
         )}
       </div>
@@ -145,7 +145,7 @@ export default function FoH({ onOrderFinished }) {
         {orders.length > 0 ? (
           <ul>
             {orders.map((order, index) => (
-              <li key={order.id} style={getOrderStyle(order.state)}>
+              <li key={order.id} style={{...getOrderStyle(order.state), listStyle: 'none'}}>
                 <details>
                   <summary
                     onClick={() => handleOrderClick(order)}
