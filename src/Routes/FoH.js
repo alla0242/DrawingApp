@@ -24,7 +24,7 @@ export default function FoH({ onOrderFinished }) {
   }, []);
 
   function fetchOrders() {
-    fetch('http://192.168.1.10:5150/api/getLatestImages')
+    fetch('/api/getLatestImages')
       .then(response => response.json())
       .then(data => {
         if (data.success && data.images) {
@@ -52,7 +52,7 @@ export default function FoH({ onOrderFinished }) {
   }
 
   function updateOrderState(orderId, newState) {
-    fetch('http://192.168.1.10:5150/api/updateImageState', {
+    fetch('/api/updateImageState', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ export default function FoH({ onOrderFinished }) {
     // Format the timeTaken string
     const timeTakenString = `it took ${minutes} minutes and ${seconds} seconds for the order to be completed`;
 
-    fetch('http://192.168.1.10:5150/api/finishOrder', {
+    fetch('/api/finishOrder', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

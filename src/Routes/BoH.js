@@ -13,7 +13,7 @@ const BoH = ({ width, height }) => {
     }, []);
 
     function fetchLatestImages() {
-        fetch('http://192.168.1.10:5150/api/getLatestImages')
+        fetch('/api/getLatestImages')
             .then(response => response.json())
             .then(data => {
                 if (data.success && data.images) {
@@ -48,7 +48,7 @@ const BoH = ({ width, height }) => {
     }
 
     function updateImageState(id, newState) {
-        fetch('http://192.168.1.10:5150/api/updateImageState', {
+        fetch('/api/updateImageState', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
