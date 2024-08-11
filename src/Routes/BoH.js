@@ -13,7 +13,7 @@ const BoH = ({ width, height }) => {
   }, []);
 
   function fetchLatestImages() {
-    fetch(`/api/getLatestImages`)
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/getLatestImages`)
       .then((response) => response.json())
       .then((data) => {
         if (data.success && data.images) {
@@ -54,7 +54,7 @@ const BoH = ({ width, height }) => {
   }
 
   function updateImageState(id, newState) {
-    fetch("/api/updateImageState", {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/updateImageState`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
