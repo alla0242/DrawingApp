@@ -7,7 +7,8 @@ import React from "react";
 
 const FohButton = ({
     height,
-    width
+    width,
+    onSendToKitchen
 }) => {
 
     const [loading, setLoading] = React.useState(false);
@@ -27,6 +28,7 @@ const FohButton = ({
             console.log('Success:', data);
             alert('Order sent to kitchen successfully!');
             clearCanvas();
+            onSendToKitchen(); // Hide the order form
         })
         .catch((error) => {
             console.error('Error:', error);

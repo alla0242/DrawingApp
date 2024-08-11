@@ -6,6 +6,7 @@ export default function FoH({ onOrderFinished }) {
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [blink, setBlink] = useState(false);
+  const [showOrderForm, setShowOrderForm] = useState(false);
 
   useEffect(() => {
     fetchOrders();
@@ -78,7 +79,6 @@ export default function FoH({ onOrderFinished }) {
     if (!orderToFinish) return;
 
     const lastChangeTime = new Date();
-  
 
     const createdTime = new Date(orderToFinish.timestamp);
     // Calculate the time difference in milliseconds
@@ -119,11 +119,26 @@ export default function FoH({ onOrderFinished }) {
     });
   }
 
+  function handleCreateOrder() {
+    setShowOrderForm(true);
+  }
+
+  function handleSendToKitchen() {
+    setShowOrderForm(false);
+  }
+
   return (
     <>
       <div>
-        <FohButton width={200} height={200} />
-        <Canvas width={400} height={700} />
+        {!showOrderForm && (
+          <button onClick={handleCreateOrder}>Create Order</button>
+        )}
+        {showOrderForm && (
+          <div>
+            <FohButton width={200} height={200} onSendToKitchen={handleSendToKitchen} />
+            <Canvas width={400} height={700} />
+          </div>
+        )}
       </div>
       <div>
         <h2>Current Orders</h2>
