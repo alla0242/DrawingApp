@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 const express = require("express");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const cors = require("cors");
@@ -74,7 +72,7 @@ async function run() {
       }
     });
 
-    app.get(`${uri}/api/getLatestImages`, async (req, res) => {
+    app.get("/api/getLatestImages", async (req, res) => {
       try {
         const results = await collection
           .find()
