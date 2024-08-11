@@ -25,6 +25,7 @@ async function run() {
   try {
     await client.connect();
     console.log("Connected successfully to MongoDB");
+    console.log(uri);
 
     const db = client.db("DrawingApp");
     const collection = db.collection("images");
