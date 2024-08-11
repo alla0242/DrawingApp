@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 
 const express = require("express");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
@@ -29,7 +29,7 @@ async function run() {
     const db = client.db("DrawingApp");
     const collection = db.collection("images");
 
-    app.post("/api/saveImage", async (req, res) => {
+    app.post(`${process.env.MONGODB_URI}/api/saveImage`, async (req, res) => {
       const { imageData } = req.body;
       const timestamp = new Date();
       try {
@@ -47,7 +47,7 @@ async function run() {
       }
     });
 
-    app.put("/api/updateImageState", async (req, res) => {
+    app.put(`${uri}/api/updateImageState`, async (req, res) => {
       const { id, state, source } = req.body;
       const changeTime = new Date();
       try {
@@ -74,7 +74,7 @@ async function run() {
       }
     });
 
-    app.get("/api/getLatestImages", async (req, res) => {
+    app.get(`${uri}/api/getLatestImages`, async (req, res) => {
       try {
         const results = await collection
           .find()
