@@ -35,10 +35,26 @@ const Canvas = ({
             e.preventDefault();
         };
 
-        window.addEventListener('touchmove', preventPullToRefresh, { passive: false });
+        const canvas = document.getElementById('canvas');
+
+        const addPreventDefault = () => {
+            window.addEventListener('touchmove', preventPullToRefresh, { passive: false });
+        };
+
+        const removePreventDefault = () => {
+            window.removeEventListener('touchmove', preventPullToRefresh);
+        };
+
+        if (canvas) {
+            canvas.addEventListener('touchstart', addPreventDefault);
+            canvas.addEventListener('touchend', removePreventDefault);
+        }
 
         return () => {
-            window.removeEventListener('touchmove', preventPullToRefresh);
+            if (canvas) {
+                canvas.removeEventListener('touchstart', addPreventDefault);
+                canvas.removeEventListener('touchend', removePreventDefault);
+            }
         };
     }, []);
 
