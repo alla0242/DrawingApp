@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require("express");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const cors = require("cors");
@@ -7,6 +9,10 @@ app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 
 const uri = process.env.MONGODB_URI;
+if (!uri) {
+  console.error("MONGODB_URI environment variable is not set");
+  process.exit(1);
+}
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
