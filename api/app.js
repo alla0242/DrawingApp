@@ -29,7 +29,7 @@ async function run() {
     const db = client.db("DrawingApp");
     const collection = db.collection("images");
 
-    app.post("/api/saveImage", async (req, res) => {
+    app.post(`${process.env.MONGODB_URI}/api/saveImage`, async (req, res) => {
       const { imageData } = req.body;
       const timestamp = new Date();
       try {
