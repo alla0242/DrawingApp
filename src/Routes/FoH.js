@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import Canvas from '../Components/Canvas.js';
-import FohButton from '../Components/FohButton';
+require("dotenv").config();
+
+import React, { useState, useEffect } from "react";
+import Canvas from "../Components/Canvas.js";
+import FohButton from "../Components/FohButton";
+
+const uri = process.env.MONGODB_URI;
+
 
 export default function FoH({ onOrderFinished }) {
   const [orders, setOrders] = useState([]);
@@ -17,24 +22,24 @@ export default function FoH({ onOrderFinished }) {
 
   useEffect(() => {
     const blinkInterval = setInterval(() => {
-      setBlink(prevBlink => !prevBlink);
+      setBlink((prevBlink) => !prevBlink);
     }, 1000);
 
     return () => clearInterval(blinkInterval);
   }, []);
 
   function fetchOrders() {
-    fetch('/api/getLatestImages')
-      .then(response => response.json())
-      .then(data => {
+    fetch(`${uri}/api/getLatestImages`)
+      .then((response) => response.json())
+      .then((data) => {
         if (data.success && data.images) {
           setOrders(data.images);
         } else {
-          console.log('No orders found');
+          console.log("No orders found");
         }
       })
-      .catch(error => {
-        console.error('Error:', error);
+      .catch((error) => {
+        console.error("Error:", error);
       });
   }
 
@@ -44,38 +49,40 @@ export default function FoH({ onOrderFinished }) {
 
   function getOrderStyle(state) {
     if (state === "Ready for Pickup") {
-      return blink ? { backgroundColor: 'red' } : { backgroundColor: 'white' };
+      return blink ? { backgroundColor: "red" } : { backgroundColor: "white" };
     } else if (state === "Order at table") {
-      return blink ? { backgroundColor: 'blue' } : { backgroundColor: 'white' };
+      return blink ? { backgroundColor: "blue" } : { backgroundColor: "white" };
     }
     return {};
   }
 
   function updateOrderState(orderId, newState) {
-    fetch('/api/updateImageState', {
-      method: 'PUT',
+    fetch("/api/updateImageState", {
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: orderId, state: newState, source: 'FoH' }),
+      body: JSON.stringify({ id: orderId, state: newState, source: "FoH" }),
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         if (data.success) {
-          setOrders(prevOrders => prevOrders.map(order => 
-            order.id === orderId ? { ...order, state: newState } : order
-          ));
+          setOrders((prevOrders) =>
+            prevOrders.map((order) =>
+              order.id === orderId ? { ...order, state: newState } : order
+            )
+          );
         } else {
-          console.error('Failed to update order state');
+          console.error("Failed to update order state");
         }
       })
-      .catch(error => {
-        console.error('Error:', error);
+      .catch((error) => {
+        console.error("Error:", error);
       });
   }
 
   function finishOrder(orderId) {
-    const orderToFinish = orders.find(order => order.id === orderId);
+    const orderToFinish = orders.find((order) => order.id === orderId);
     if (!orderToFinish) return;
 
     const lastChangeTime = new Date();
@@ -86,8 +93,8 @@ export default function FoH({ onOrderFinished }) {
 
     // Ensure timeDifference is non-negative
     if (timeDifference < 0) {
-        console.error('Last change time is earlier than created time');
-        return;
+      console.error("Last change time is earlier than created time");
+      return;
     }
 
     // Convert milliseconds to total seconds
@@ -98,25 +105,27 @@ export default function FoH({ onOrderFinished }) {
     // Format the timeTaken string
     const timeTakenString = `it took ${minutes} minutes and ${seconds} seconds for the order to be completed`;
 
-    fetch('/api/finishOrder', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id: orderId, timeTaken: timeTakenString }),
+    fetch("/api/finishOrder", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: orderId, timeTaken: timeTakenString }),
     })
-    .then(response => response.json())
-    .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         if (data.success) {
-            setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
-            onOrderFinished(); // Notify BoH to refresh
+          setOrders((prevOrders) =>
+            prevOrders.filter((order) => order.id !== orderId)
+          );
+          onOrderFinished(); // Notify BoH to refresh
         } else {
-            console.error('Failed to finish order');
+          console.error("Failed to finish order");
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }
 
   function handleCreateOrder() {
@@ -131,12 +140,18 @@ export default function FoH({ onOrderFinished }) {
     <>
       <div>
         {!showOrderForm && (
-          <button onClick={handleCreateOrder} className='large-button'>Create Order</button>
+          <button onClick={handleCreateOrder} className="large-button">
+            Create Order
+          </button>
         )}
         {showOrderForm && (
           <div>
             <Canvas width={400} height={700} />
-            <FohButton width={200} height={200} onSendToKitchen={handleSendToKitchen} />
+            <FohButton
+              width={200}
+              height={200}
+              onSendToKitchen={handleSendToKitchen}
+            />
           </div>
         )}
       </div>
@@ -145,7 +160,10 @@ export default function FoH({ onOrderFinished }) {
         {orders.length > 0 ? (
           <ul>
             {orders.map((order, index) => (
-              <li key={order.id} style={{...getOrderStyle(order.state), listStyle: 'none'}}>
+              <li
+                key={order.id}
+                style={{ ...getOrderStyle(order.state), listStyle: "none" }}
+              >
                 <details>
                   <summary
                     onClick={() => handleOrderClick(order)}
