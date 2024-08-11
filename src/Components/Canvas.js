@@ -1,26 +1,20 @@
-import {useOnDraw} from './Hooks'
+import { useOnDraw } from './Hooks';
 
 const Canvas = ({
     width,
     height
 }) => {
-
     const {
         onMouseDown,
-        setCanvasRef
-    } = useOnDraw(onDraw)
+        setCanvasRef,
+        onTouchStart
+    } = useOnDraw(onDraw);
 
-    function onDraw(ctx, point, prevPoint){
-        drawLine(prevPoint, point, ctx, '#000000', 5 )
+    function onDraw(ctx, point, prevPoint) {
+        drawLine(prevPoint, point, ctx, '#000000', 5);
     }
 
-    function drawLine(
-        start,
-        end,
-        ctx,
-        color,
-        width
-    ){
+    function drawLine(start, end, ctx, color, width) {
         start = start ?? end;
         ctx.beginPath();
         ctx.lineWidth = width;
@@ -29,27 +23,27 @@ const Canvas = ({
         ctx.lineTo(end.x, end.y);
         ctx.stroke();
 
-
         ctx.fillStyle = color;
         ctx.beginPath();
-        ctx.arc(start.x,start.y, 2, 0, 2 * Math.PI);
+        ctx.arc(start.x, start.y, 2, 0, 2 * Math.PI);
         ctx.fill();
     }
 
-    return(
+    return (
         <canvas
             width={width}
             height={height}
             onMouseDown={onMouseDown}
+            onTouchStart={onTouchStart}
             style={canvasStyle}
             ref={setCanvasRef}
             id={'canvas'}
         />
-    )
-}
+    );
+};
 
 export default Canvas;
 
 const canvasStyle = {
     border: "1px solid black"
-}
+};
