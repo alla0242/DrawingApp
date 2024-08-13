@@ -9,7 +9,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
-    "mongodb": "^6.8.0",
+    "mongodb": "^6.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.3",
@@ -17,9 +17,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start && node api/app.js",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts start && node api/app.js",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
+    "test": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
