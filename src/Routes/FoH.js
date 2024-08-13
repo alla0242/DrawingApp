@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Canvas from "../Components/Canvas.js";
 import FohButton from "../Components/FohButton";
 
-const uri = process.env.MONGODB_URI;
+// const uri = process.env.MONGODB_URI;
 
 
 export default function FoH({ onOrderFinished }) {
@@ -28,7 +28,7 @@ export default function FoH({ onOrderFinished }) {
   }, []);
 
   function fetchOrders() {
-    fetch(`${uri}/api/getLatestImages`)
+    fetch(`/api/getLatestImages`)
       .then((response) => response.json())
       .then((data) => {
         if (data.success && data.images) {
