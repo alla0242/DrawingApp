@@ -129,13 +129,16 @@ async function run() {
           .json({ success: false, message: "Failed to finish order" });
       }
     });
-
-    app.listen(5150, () => {
-      console.log("Server is running on port 5150");
-    });
   } catch (error) {
     console.error(error);
+  } finally {
+    // Close the client when the run function completes
+    await client.close();
   }
 }
 
-run().catch(console.dir);
+const PORT = process.env.PORT;
+
+app.listen(PORT, () => {
+  console.log("Server is running on port " + PORT);
+});
